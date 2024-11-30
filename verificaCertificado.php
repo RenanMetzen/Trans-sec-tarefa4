@@ -173,6 +173,7 @@ if($_POST["funcao"] == "adicionar"){
         $cert_atual = $certificado_final;
         $certificado_inicial = $certificado_final;
         $ultimo_certificado_baixado = null;
+        $cert_raiz = $certificado_inicial;
         $i = 1;
         while (true) {
             $url_intermediario = extrair_ca_issuer_url($cert_atual);

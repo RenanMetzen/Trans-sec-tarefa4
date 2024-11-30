@@ -154,6 +154,8 @@ if($_POST["funcao"] == "adicionar"){
         }
     }
     function baixar_certificado($url, $nome_arquivo) {
+        $headers = @get_headers($url);
+        if ($headers && strpos($headers[0], '200') !== false) {
             $cert_data = file_get_contents($url);
             if ($cert_data === false) {
                 echo "Erro ao baixar o certificado de $url\n";
@@ -162,6 +164,9 @@ if($_POST["funcao"] == "adicionar"){
             $nome_arquivo = preg_replace('/\.[^.\s]{2,4}$/', '.crt', $nome_arquivo);
             file_put_contents($nome_arquivo, $cert_data);
             return true;
+        }else{
+            return false;
+        }
     }
     function construir_cadeia($certificado_final, $pasta_certs) {
         $cadeia = [];
